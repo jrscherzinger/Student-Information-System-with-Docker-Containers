@@ -1,7 +1,7 @@
 # Student Information System
 
 ## Project Description
-A student information system developed using C++, PostgreSQL, Docker, and GitHub.
+A student information system developed using C++, PostgreSQL, Docker and GitHub.
 
 ## Technologies
 - C++
