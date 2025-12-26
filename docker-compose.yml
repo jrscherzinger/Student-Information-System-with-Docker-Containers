@@ -1,18 +1,28 @@
-version: "3.8"
+
 
 services:
-  app:
-    build: .
-    container_name: sis_app
-    depends_on:
-      - db
-
-  db:
+  postgres:
     image: postgres:15
-    container_name: sis_db
+    container_name: sis-postgres
     environment:
-      POSTGRES_DB: sis_db
       POSTGRES_USER: sis_user
-      POSTGRES_PASSWORD: sis_pass
+      POSTGRES_PASSWORD: sis_password
+      POSTGRES_DB: sis_db
     ports:
       - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    image: 99efe/sis-app:week2
+    container_name: sis-app
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_USER: sis_user
+      DB_PASSWORD: sis_password
+      DB_NAME: sis_db
+
+volumes:
+  postgres_data:
