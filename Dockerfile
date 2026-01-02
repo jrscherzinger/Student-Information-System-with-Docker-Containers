@@ -1,9 +1,14 @@
 FROM ubuntu:22.04
 
+ENV DEBIAN_FRONTEND=noninteractive
+
 RUN apt-get update && apt-get install -y \
-    g++ \
+    build-essential \
     cmake \
-    make
+    g++ \
+    libpq-dev \
+    libpqxx-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
@@ -14,4 +19,4 @@ RUN mkdir -p build && \
     cmake .. && \
     make
 
-CMD ["./build/sis"]
+CMD ["bash", "-lc", "sleep infinity"]
