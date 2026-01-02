@@ -23,7 +23,7 @@ services:
       DB_NAME: sis_db
     tty: true
     stdin_open: true
-    command: ["bash", "-lc", "sleep infinity"]
 
 volumes:
   postgres_data:
+
