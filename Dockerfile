@@ -1,17 +1,20 @@
-FROM ubuntu:22.04
+FROM ubuntu:24.04
+
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN apt-get update && apt-get install -y \
-    g++ \
-    cmake \
-    make
+    build-essential cmake git \
+    libpqxx-dev libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
 
+# copy sources
 COPY . .
 
-RUN mkdir -p build && \
-    cd build && \
-    cmake .. && \
-    make
+# build
+RUN rm -rf build && mkdir build && cd build && cmake .. && make -j
 
-CMD ["./build/sis"]
+WORKDIR /app/build
+
+CMD ["./sis"]
