@@ -1,7 +1,31 @@
-
 #ifndef DATABASE_HPP
-#define DATABASE_HPP 
+#define DATABASE_HPP
 
-// database connection and operations will be implemented later
+#include <pqxx/pqxx>
+#include <string>
+#include <vector>
 
-#endif // DATABASE_HPP
+struct Student {
+    int id;
+    std::string name;
+    std::string surname;
+    std::string department;
+    std::string email;
+};
+
+class Database {
+public:
+    Database();
+
+    void addStudent(const Student& s);
+    std::vector<Student> listStudents();
+    void updateStudent(int id, const Student& s);
+    void deleteStudent(int id);
+
+    pqxx::connection& getConnection();
+
+private:
+    pqxx::connection conn;
+};
+
+#endif
