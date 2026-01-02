@@ -1,7 +1,15 @@
-
 #ifndef DATABASE_HPP
-#define DATABASE_HPP 
+#define DATABASE_HPP
 
-// database connection and operations will be implemented later
+#include <pqxx/pqxx>
 
-#endif // DATABASE_HPP
+class Database {
+public:
+    Database();
+    pqxx::connection& getConnection();
+
+private:
+    pqxx::connection conn;
+};
+
+#endif
