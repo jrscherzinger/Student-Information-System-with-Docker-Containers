@@ -5,15 +5,18 @@ ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
-    git \
+    g++ \
     libpq-dev \
     libpqxx-dev \
     && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
+
 COPY . .
 
-RUN rm -rf build && mkdir build && cd build && cmake .. && make -j
+RUN mkdir -p build && \
+    cd build && \
+    cmake .. && \
+    make
 
-# CLI interaktif olduğu için container ayakta kalsın; çalıştırmayı docker exec ile yapacağız
 CMD ["bash", "-lc", "sleep infinity"]
