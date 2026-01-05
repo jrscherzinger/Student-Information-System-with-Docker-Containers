@@ -1,0 +1,29 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: sis-postgres
+    environment:
+      POSTGRES_USER: sis_user
+      POSTGRES_PASSWORD: sis_password
+      POSTGRES_DB: sis_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  app:
+    build: .
+    container_name: sis-app
+    depends_on:
+      - postgres
+    environment:
+      DB_HOST: postgres
+      DB_USER: sis_user
+      DB_PASSWORD: sis_password
+      DB_NAME: sis_db
+    tty: true
+    stdin_open: true
+
+volumes:
+  postgres_data:
+
